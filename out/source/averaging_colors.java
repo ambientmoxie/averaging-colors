@@ -18,7 +18,7 @@ public class averaging_colors extends PApplet {
 PImage seed;
 IntDict inventory;
 
-int storedColor;
+String storedColor;
 int starter;
 
  public void setup() {
@@ -47,21 +47,21 @@ int starter;
             float cG = green(pixG);
             float cB = blue(pixB);
 
-            storedColor = color(cR, cG, cB);
+            storedColor = hex(color(cR, cG, cB));
 
-            if (inventory.hasKey(str(storedColor)) == true) {
-                inventory.increment(str(storedColor));
+            if (inventory.hasKey(storedColor) == true) {
+                inventory.increment(storedColor);
             } else {
-                inventory.set(str(storedColor), starter);
+                inventory.set(storedColor, starter);
             }
         }
     }
-            // inventory.maxValue();
-            String stringColor = inventory.maxKey();
+            // Convertir string to byte, byte to hex
+            //String stringColor = inventory.maxKey();
 
-            println(inventory.maxKey(), inventory.maxValue());
-            println(hex(stringColor));
-            fill(storedColor);
+            //println(inventory.maxKey(), inventory.maxValue());
+            println(storedColor);
+            fill(unhex(storedColor));
             rect(0, 0, 100, 100);
 }
 
