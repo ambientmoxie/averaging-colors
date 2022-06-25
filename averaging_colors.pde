@@ -2,11 +2,11 @@ PImage seed;
 IntDict inventory;
 
 String storedColor;
+int usableColor;
 int starter;
 
 void setup() {
     size(512, 512);
-    noStroke();
     String url = "https://picsum.photos/"+ width +"/"+height;
     seed = loadImage(url, "jpg");
 
@@ -39,11 +39,18 @@ void draw() {
             }
         }
     }
-            // Convertir string to byte, byte to hex
-            //String stringColor = inventory.maxKey();
 
-            //println(inventory.maxKey(), inventory.maxValue());
-            println(storedColor);
-            fill(unhex(storedColor));
-            rect(0, 0, 100, 100);
+    inventory.sortValuesReverse();
+    float amount = 100;
+    float w = width / amount;
+    float h = height / amount;
+
+    for (int index = 0; index < amount; index++) {
+        int posX = int(index * w);  
+        usableColor = unhex(inventory.key(index));
+        stroke(usableColor);
+        fill(usableColor);
+        rect(posX, 0, w, h);
+    }
+
 }
