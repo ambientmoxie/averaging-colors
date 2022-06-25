@@ -2,6 +2,7 @@ PImage seed;
 IntDict inventory;
 
 color storedColor;
+int starter;
 
 void setup() {
     size(512, 512);
@@ -10,6 +11,7 @@ void setup() {
     seed = loadImage(url, "jpg");
 
     inventory = new IntDict();
+    starter = 1;
     noLoop();
 
 }
@@ -30,12 +32,18 @@ void draw() {
 
             storedColor = color(cR, cG, cB);
 
-            inventory.set(str(pixelIndex), storedColor);
-
-
+            if (inventory.hasKey(str(storedColor)) == true) {
+                inventory.increment(str(storedColor));
+            } else {
+                inventory.set(str(storedColor), starter);
+            }
         }
     }
-            println(inventory);
+            // Convertir string to byte, byte to hex
+            String stringColor = inventory.maxKey();
+
+            println(inventory.maxKey(), inventory.maxValue());
+            println(hex(stringColor));
             fill(storedColor);
             rect(0, 0, 100, 100);
 }

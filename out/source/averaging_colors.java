@@ -19,6 +19,7 @@ PImage seed;
 IntDict inventory;
 
 int storedColor;
+int starter;
 
  public void setup() {
     /* size commented out by preprocessor */;
@@ -27,6 +28,7 @@ int storedColor;
     seed = loadImage(url, "jpg");
 
     inventory = new IntDict();
+    starter = 1;
     noLoop();
 
 }
@@ -47,12 +49,18 @@ int storedColor;
 
             storedColor = color(cR, cG, cB);
 
-            inventory.set(str(pixelIndex), storedColor);
-
-
+            if (inventory.hasKey(str(storedColor)) == true) {
+                inventory.increment(str(storedColor));
+            } else {
+                inventory.set(str(storedColor), starter);
+            }
         }
     }
-            println(inventory);
+            // inventory.maxValue();
+            String stringColor = inventory.maxKey();
+
+            println(inventory.maxKey(), inventory.maxValue());
+            println(hex(stringColor));
             fill(storedColor);
             rect(0, 0, 100, 100);
 }
