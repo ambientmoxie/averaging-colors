@@ -1,3 +1,10 @@
+// ---------------------------------------------------------------
+// Author : Maxime Benoit
+// Date : 27/06/2022
+// Description : Parse and sort colors from an image
+// Next : Rasterized seed image for a better average color display
+// ---------------------------------------------------------------
+
 PGraphics pg;
 PGraphics sg;
 PImage seed;
@@ -23,11 +30,11 @@ void setup() {
     col = 0;
     row = 0;
 
-    //String url = "https://picsum.photos/"+ width / divider +"/"+height;
+    String url = "https://picsum.photos/"+ width / divider +"/"+height;
     pg = createGraphics(width / divider, height);
     sg = createGraphics(width / divider, height);
-    //seed = loadImage(url, "jpg");
-    seed = loadImage("test.png");
+    seed = loadImage(url, "jpg");
+    //seed = loadImage("test.png");
     inventory = new IntDict();
     starter = 1; 
 }
@@ -76,17 +83,26 @@ void displayShapes(){
         }
     }
 
-    //how about mapping the inventory
-
     inventory.sortValuesReverse();
-    println(inventory);
-    float amount = 3;
-    float neededNbr = 3;
-    //float amount = sq(neededNbr); //square the grid
+
+
+
+    // Check how many value there is in the dict
+    //  devideArray();
+    // Separate this values into (random nmb) pack exemple : 4
+
+
+
+    // Faire la moyenne de chaque pack
+    // resulting average 4 colors 
+
+    //float amount = 3;
+    float neededNbr = 10;
+    float amount = sq(neededNbr); //square the grid
     float w = sg.width / neededNbr;
     float h = sg.height / neededNbr;
     
-    for (int index = 0; index < amount; index++) {
+    for (int index = 0; index < amount + 1; index++) {
 
         usableColor = unhex(inventory.key(index));
         sg.stroke(usableColor);
@@ -103,3 +119,21 @@ void displayShapes(){
 
     sg.endDraw();
 }
+
+// void devideArray(){
+//     // Check how many value there is in the dict
+//     int shunk = 10;
+//     int dictSize = inventory.size();
+//     println(dictSize);
+//     // Separate this values into (random nmb) pack exemple : 10
+//     String[] theKeys = inventory.keyArray();
+//     for(int i = 0; i < theKeys.length; i++) {
+
+//         if(i % shunk == 0 && i != 0) {
+//             theKeys = splice(theKeys, "/", i);
+//         }
+//     }
+//     String[] splitedColorArray = split(theKeys, '/');
+//     println(splitedColorArray[1]);
+  
+// }
