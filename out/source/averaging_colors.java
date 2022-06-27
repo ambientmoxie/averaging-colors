@@ -40,10 +40,11 @@ float row;
     col = 0;
     row = 0;
 
-    String url = "https://picsum.photos/"+ width / divider +"/"+height;
+    //String url = "https://picsum.photos/"+ width / divider +"/"+height;
     pg = createGraphics(width / divider, height);
     sg = createGraphics(width / divider, height);
-    seed = loadImage(url, "jpg");
+    //seed = loadImage(url, "jpg");
+    seed = loadImage("test.png");
     inventory = new IntDict();
     starter = 1; 
 }
@@ -71,12 +72,12 @@ float row;
 
     sg.background(255);
 
-    for (int i = 0; i < pg.width; ++i) {
-        for (int j = 0; j < pg.height; ++j) {
-            int pixelIndex = i + j * width / divider;
-            int pixR = pg.pixels[pixelIndex];
-            int pixG = pg.pixels[pixelIndex];
-            int pixB = pg.pixels[pixelIndex];
+    for (int i = 0; i < seed.width; ++i) {
+        for (int j = 0; j < seed.height; ++j) {
+            int pixelIndex = i + j * seed.width;
+            int pixR = seed.pixels[pixelIndex];
+            int pixG = seed.pixels[pixelIndex];
+            int pixB = seed.pixels[pixelIndex];
 
             float cR = red(pixR);
             float cG = green(pixG);
@@ -92,27 +93,30 @@ float row;
         }
     }
 
+    //how about mapping the inventory
+
     inventory.sortValuesReverse();
     println(inventory);
-    float neededNbr = 40;
-    float amount = sq(neededNbr);
-    float w = (width / divider) / neededNbr;
-    float h = height / neededNbr;
+    float amount = 3;
+    float neededNbr = 3;
+    //float amount = sq(neededNbr); //square the grid
+    float w = sg.width / neededNbr;
+    float h = sg.height / neededNbr;
     
-    for (int index = 1; index < amount + 1; index++) {
+    for (int index = 0; index < amount; index++) {
 
         usableColor = unhex(inventory.key(index));
         sg.stroke(usableColor);
         sg.fill(usableColor);
         sg.rect(col, row, w, h);
+        println("drawn");
     
         col += w;
         
-        if(index % neededNbr == 0) {
+        if(index % neededNbr == 0 && index != 0) {
             row += h;
             col = 0;
         }
-
     }
 
     sg.endDraw();
