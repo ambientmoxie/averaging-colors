@@ -76,16 +76,16 @@ void displayShapes(){
     }
 
     inventory.sortValuesReverse();
-    float amount = 500;
-    float neededNbr = 30;
+    println(inventory);
+    float neededNbr = 40;
+    float amount = sq(neededNbr); //square the grid
     float w = (width / divider) / neededNbr;
     float h = height / neededNbr;
     
     for (int index = 1; index < amount + 1; index++) {
 
         usableColor = unhex(inventory.key(index));
-        //sg.stroke(usableColor);
-        sg.noStroke();
+        sg.stroke(usableColor);
         sg.fill(usableColor);
         sg.rect(col, row, w, h);
     
@@ -94,7 +94,6 @@ void displayShapes(){
         if(index % neededNbr == 0) {
             row += h;
             col = 0;
-            println(w, h);
         }
 
     }
